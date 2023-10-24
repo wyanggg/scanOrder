@@ -5,8 +5,13 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
 	state: {
+		token: "",
+		loginDialogShow: false
 	},
 	mutations: {
+		showLoginDialog(state) {
+			state.loginDialogShow = true
+		}
 	}
 })
 

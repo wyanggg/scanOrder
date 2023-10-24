@@ -1,11 +1,11 @@
 const baseURL = "http://ordershop.api.qzpfslc.cn"
 export default function Request(options) {
     return new Promise((resolve, reject) => {
-        const tok = uni.getStorageSync("token")
+        const token = uni.getStorageSync("token")
         var header = {}
         if (options.header == "json") {
             header = {
-                token: tok,
+                token: token,
                 "content-type": "application/json",
             }
         } else if (options.header == "notoken") {
@@ -14,7 +14,7 @@ export default function Request(options) {
             }
         } else {
             header = {
-                token: tok,
+                token: token,
                 "content-type": "application/x-www-form-urlencoded",
                 type: "1",
             }
@@ -28,8 +28,9 @@ export default function Request(options) {
             success: (res) => {
                 if (res.statusCode == 400) {
                     uni.reLaunch({
-                        url: "/pages/login/login",
-                    })
+                        url: '/pages/login/login'
+                    });
+                    // 未登录 调用登录
                     return
                 }
                 if (res.data.code == 200) {

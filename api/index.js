@@ -28,3 +28,10 @@ export const getProducts = (data) => Request({
     data,
     method: "get",
 })
+
+export const getUserInfo = (data) => Request({
+    url: "/api/user/my",
+    data,
+    method: "get",
+})
+

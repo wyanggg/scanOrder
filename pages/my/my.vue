@@ -1,130 +1,66 @@
 <template>
   <view class="container">
     <view class="img"></view>
-    <!-- <image class="w-100 img" style="height: 160rpx;" src="https://go.cdn.heytea.com/storage/products/2019/12/18/01954797f3fb470cb6ba1606476c658c.png"></image> -->
     <view class="content">
-      <view
-        class="welcome"
-        @tap="openLoginPopup"
-      >
+      <view class="welcome" @tap="openLoginPopup">
         <view v-if="isLogin">
-          <image
-            v-if="isLogin"
-            :src="userinfo.headpic"
-            class="headpic"
-          ></image>
+          <image v-if="isLogin" :src="userinfo.headpic" class="headpic"></image>
           <view>
             <text>{{ userinfo.nickname }}</text>
             <text>普通用户</text>
           </view>
         </view>
-        <!-- <view style="text-align: center;">{{userinfo.nickname}}</view> -->
-
-        <view
-          v-else
-          style="text-align: center; margin-top: 70rpx"
-          >立即登录</view
-        >
+        <view v-else class="login">立即登录</view>
       </view>
-      <!-- member card begin -->
       <view class="member-card">
         <view class="row">
-          <navigator
-            class="grid"
-            open-type="navigate"
-            url="/pages/integrals/scores"
-          >
+          <navigator class="grid" open-type="navigate" url="/pages/integrals/scores">
             <image src="/static/images/my/jf.png"></image>
             <view class="value">{{ userinfo.points || 0 }}</view>
             <view class="title">积分</view>
           </navigator>
-          <view
-            class="grid"
-            hover-class="opacity-6"
-            @tap="toGoCoupon"
-          >
+          <view class="grid" hover-class="opacity-6" @tap="toGoCoupon">
             <image src="/static/images/my/yhq.png"></image>
             <view class="value">{{ couponn || 0 }}</view>
             <view class="title">优惠券</view>
           </view>
-          <navigator
-            class="grid"
-            open-type="navigate"
-            url="/pages/my/wallet"
-          >
+          <navigator class="grid" open-type="navigate" url="/pages/my/wallet">
             <image src="/static/images/my/ye.png"></image>
             <view class="value">{{ userinfo.money || 0 }}</view>
             <view class="title">余额</view>
           </navigator>
         </view>
       </view>
-      <!-- member card end -->
     </view>
 
-    <navigator
-      open-type="navigate"
-      url="../addresses/addresses"
-    >
-      <list-cell
-        hover
-        arrow
-        last
-      >
+    <navigator open-type="navigate" url="../addresses/addresses">
+      <list-cell hover arrow last>
         <view class="list-cell-wrapper">
           <view view="title">地址管理</view>
         </view>
       </list-cell>
     </navigator>
-    <view
-      v-for="(item, index) in articles"
-      :key="index"
-      @click="nav(item)"
-    >
-      <list-cell
-        hover
-        arrow
-      >
+    <view v-for="(item, index) in articles" :key="index" @click="nav(item)">
+      <list-cell hover arrow>
         <view class="list-cell-wrapper">
           <view view="title">{{ item.title }}</view>
         </view>
       </list-cell>
     </view>
-    <!-- <list-cell hover arrow>
-			<view class="list-cell-wrapper">
-				<view view="title">消息中心</view>
-			</view>
-		</list-cell> -->
 
-    <!-- 店家信息 -->
-    <view class="info22">
-      <view>{{ shopTel }}</view>
-      <view>{{ shopAddress }}</view>
-    </view>
-    <!-- 店家信息 end -->
     <!-- 登录popup -->
-    <login-popup
-      @auto="auto"
-      ref="loginPopup"
-      @getInfo="updateUserInfo"
-    ></login-popup>
-    <xcx-auth
-      v-if="is_show_auth"
-      @getInfo="updateUserInfo"
-      @getInfoFail="getInfoFail"
-    ></xcx-auth>
+    <login-popup @auto="auto" ref="loginPopup" @getInfo="updateUserInfo"></login-popup>
   </view>
 </template>
 
 <script>
 import listCell from "@/components/list-cell/list-cell.vue";
 import loginPopup from "./components/login-popup.vue";
-import XCXauth from "./components/xcx_auth.vue";
-
+import { getUserInfo } from "@/api"
 export default {
   components: {
     listCell,
     loginPopup,
-    "xcx-auth": XCXauth,
   },
   data() {
     return {
@@ -141,9 +77,18 @@ export default {
     };
   },
   watch: {},
-  onLoad() {},
-  onShow() {},
-  methods: {},
+  onLoad() { },
+  onShow() {
+    this.getData()
+  },
+  methods: {
+    async getData() {
+      let res = await getUserInfo()
+      if (res.code == 200) {
+        console.log('res', res)
+      }
+    }
+  },
 };
 </script>
 
@@ -153,6 +98,7 @@ page {
   height: auto;
   min-height: 100%;
 }
+
 /* #endif */
 .info22 {
   position: fixed;
@@ -166,6 +112,7 @@ page {
   bottom: 10px;
   /* #endif */
 }
+
 .img {
   width: 750rpx;
   height: 450rpx;
@@ -177,6 +124,7 @@ page {
 .content {
   padding: 0 30rpx;
 }
+
 .headpic {
   width: 100rpx;
   height: 100rpx;
@@ -191,16 +139,36 @@ page {
   font-size: $font-size-lg;
   color: $text-color-warning;
 
-  > view {
+  .login {
+    margin: 0 auto;
+    width: 450rpx;
+    height: 100rpx;
+    line-height: 120rpx;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+    color: #ffffff;
+    font-weight: 800;
+    text-shadow: 5rpx 5rpx 10rpx #333333;
+
+    background-color: rgba($color: #ffffff, $alpha: 0.8);
+    border-radius: 50rpx;
+
+    box-shadow: 0 0 10rpx 2rpx #ccc;
+    padding: 0;
+  }
+
+  >view {
     padding-left: 50rpx;
     display: flex;
 
-    > view {
+    >view {
       margin-left: 30rpx;
       display: flex;
       flex-direction: column;
 
-      > text {
+      >text {
         &:last-child {
           color: #777;
           font-size: 0.8rem;
@@ -220,12 +188,14 @@ page {
   margin-top: 80rpx;
   color: #777;
   font-size: 12px;
-  > view {
+
+  >view {
     &:first-child {
       margin-bottom: 10rpx;
     }
   }
 }
+
 /* #ifdef MP-WEIXIN */
 .info {
   position: fixed;
@@ -236,7 +206,8 @@ page {
   margin-top: 80rpx;
   color: #777;
   font-size: 0.9rem;
-  > view {
+
+  >view {
     &:first-child {
       margin-bottom: 10rpx;
     }
@@ -261,6 +232,7 @@ page {
     padding: 20rpx 0;
     border-bottom: 1rpx solid rgba($color: $border-color, $alpha: 0.3);
     font-size: 12px;
+
     .title {
       flex: 1;
       font-size: 12px;
@@ -331,6 +303,7 @@ page {
         font-size: $font-size-sm;
         color: $text-color-grey;
       }
+
       image {
         width: 30px;
         height: 30px;
@@ -404,10 +377,12 @@ page {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
     .title {
       font-size: $font-size-lg;
       color: $text-color-base;
     }
+
     .subtitle {
       font-family: "neutra";
       font-size: $font-size-sm;

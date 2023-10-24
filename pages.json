@@ -181,6 +181,27 @@
         "navigationBarTitleText": " ",
         "navigationStyle": "custom"
       }
+    },
+    {
+      "path": "pages/login/login",
+      "style": {
+        "navigationBarTitleText": " ",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/login/register",
+      "style": {
+        "navigationBarTitleText": " ",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/login/forget",
+      "style": {
+        "navigationBarTitleText": " ",
+        "navigationStyle": "custom"
+      }
     }
   ],
   "tabBar": {
