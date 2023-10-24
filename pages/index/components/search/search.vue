@@ -1,89 +1,35 @@
 <template>
-  <uni-transition
-    :mode-class="['slide-left']"
-    :styles="tranStyles"
-    :show="show"
-  >
+  <uni-transition :mode-class="['slide-left']" :styles="tranStyles" :show="show">
     <view class="d-flex flex-column overflow-hidden">
       <view class="search-box">
         <view class="search-input">
-          <image
-            src="/static/images/common/search-icon.png"
-            class="search-icon"
-          ></image>
-          <input
-            type="text"
-            v-model="keyword"
-            placeholder="试试搜个 泰 字"
-            placeholder-class="placeholder"
-          />
-          <image
-            v-if="keyword"
-            src="/static/images/common/image-delete.png"
-            class="close-icon"
-            @tap="clear"
-          />
-          <text
-            class="search-btn"
-            @tap="handleKeywordInput"
-            >搜索</text
-          >
+          <image src="/static/images/common/search-icon.png" class="search-icon"></image>
+          <input type="text" v-model="keyword" placeholder="试试搜个 泰 字" placeholder-class="placeholder" />
+          <image v-if="keyword" src="/static/images/common/image-delete.png" class="close-icon" @tap="clear" />
+          <text class="search-btn" @tap="handleKeywordInput">搜索</text>
         </view>
-        <view
-          class="ml-30"
-          @tap="hide"
-          >取消</view
-        >
+        <view class="ml-30" @tap="hide">取消</view>
       </view>
-      <scroll-view
-        class="result"
-        scroll-y
-      >
+      <scroll-view class="result" scroll-y>
         <template v-if="!result.length">
           <view class="section">
             <view class="header">
               <view class="title">搜索热词</view>
               <view class="subtitle">
-                <!-- <image src="/static/images/common/delete.png"></image>
-								<view>清除</view> -->
               </view>
             </view>
             <view class="list">
-              <view
-                class="item"
-                v-for="(item, index) in historySearch"
-                :key="index"
-                @tap="handleChoose(item.name)"
-              >
+              <view class="item" v-for="(item, index) in historySearch" :key="index" @tap="handleChoose(item.name)">
                 {{ item }}
               </view>
             </view>
           </view>
-          <!-- <view class="section">
-						<view class="header">
-							<view class="title">热门推荐</view>
-						</view>
-						<view class="list">
-							<view class="item" v-for="(item, index) in hotSearch" :key="index" @tap="handleChoose(item)">
-								<view class="name">{{ item.productName }}</view>
-								<image v-if="item.nameImage" :src="item.nameImage" class="name-image"></image>
-							</view>
-						</view>
-					</view> -->
         </template>
         <template v-else>
           <view class="wrapper">
-            <view
-              class="product"
-              v-for="(item, index) in result"
-              :key="index"
-              @tap="handleChoose(item, true)"
-            >
+            <view class="product" v-for="(item, index) in result" :key="index" @tap="handleChoose(item, true)">
               <view class="d-flex align-items-center">
-                <image
-                  :src="getimg + item.img_id"
-                  class="pro-image"
-                />
+                <image :src="getimg + item.img_id" class="pro-image" />
               </view>
               <view class="text">
                 <view class="pro-name">{{ item.goods_name }}</view>
@@ -136,22 +82,22 @@ export default {
       getimg: this.$getimg,
     };
   },
-  async created() {},
+  async created() { },
   methods: {
     hide() {
       this.keyword = "";
       this.result = [];
       this.$emit("hide");
     },
-    handleChoose(item, isSearch = false) {},
-    handleKeywordInput() {},
-    set_history(item) {},
+    handleChoose(item, isSearch = false) { },
+    handleKeywordInput() { },
+    set_history(item) { },
     clear() {
       this.keyword = "";
       this.result = [];
     },
     //数据重组
-    reCount(res) {},
+    reCount(res) { },
     // 获取热搜
     getSearchWord() {
       this.historySearch = uni.getStorageSync("historySearch");

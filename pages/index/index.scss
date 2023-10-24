@@ -111,7 +111,7 @@
   }
 
   .notices {
-    height: 60rpx;
+    height: 80rpx;
     display: flex;
     align-items: stretch;
     padding: 10rpx 40rpx;
@@ -187,9 +187,12 @@
     height: auto;
 
     .menu-item {
+      min-height: 162rpx;
+
       padding: 30rpx 20rpx;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       align-items: center;
       font-size: $font-size-base;
       color: $text-color-assist;
@@ -200,8 +203,9 @@
       }
 
       .image {
-        width: 40px;
-        height: 40px;
+        width: 120rpx;
+        height: 120rpx;
+        border-radius: 50%;
       }
 
       .title {
@@ -236,13 +240,9 @@
     }
   }
 
-  .ads2 {
-  }
-  // .ads1 {
-  // 	margin-bottom: 20rpx;
-  // }
-
   .products-list {
+    margin-top: 12rpx;
+
     .category-name {
       padding: 30rpx 0;
       font-size: $font-size-base;
