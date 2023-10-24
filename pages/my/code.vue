@@ -47,7 +47,6 @@
 <script>
 import uQRCode from "@/common/uqrcode";
 import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue";
-import userModel from "@/api/user.js";
 
 export default {
   components: {

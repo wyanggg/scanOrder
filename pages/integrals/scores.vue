@@ -48,7 +48,6 @@
 <script>
 import listCell from "@/components/list-cell/list-cell.vue";
 import nomore from "@/components/nomore/nomore.vue";
-import userModel from "@/api/user.js";
 
 export default {
   components: {

@@ -216,13 +216,6 @@
 </template>
 
 <script>
-import orderModel from "@/api/orderDetail.js";
-import userModel from "@/api/user.js";
-import address from "../../api/address.js";
-import usercoupon from "@/api/user_coupon.js";
-import order from "@/api/orders.js";
-import product from "@/api/product.js";
-import systemModel from "@/api/system.js";
 import listCell from "@/components/list-cell/list-cell.vue";
 import coupon from "@/components/coolc-coupon/coolc-coupon";
 export default {

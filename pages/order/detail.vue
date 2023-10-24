@@ -144,7 +144,6 @@
 
 <script>
 import listCell from "@/components/list-cell/list-cell.vue";
-import orderDetail from "@/api/orderDetail.js";
 import auiDialog from "@/components/aui-dialog/aui-dialog.vue";
 import { aui } from "../../components/aui-dialog/common/aui/js/aui.js";
 
@@ -176,10 +175,6 @@ export default {
   computed: {},
   async onLoad(options) {
     const _this = this;
-    /* 获取订单详情 */
-    await orderDetail.get_one_order(options.id).then((res) => {
-      _this.order = res.data;
-    });
   },
   methods: {
     prompt(theme) {

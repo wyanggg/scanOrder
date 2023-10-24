@@ -15,39 +15,33 @@
           <view>搜索</view>
         </view>
       </view>
-      <!-- {{'上级码：'+sjm}}
-			{{'登录用户身份码：'+sfm}} -->
       <!-- 搜索栏 end -->
       <view class="center">
         <view class="store">
           <view class="title">
             <image
-              :src="Dining_type == '店内就餐' ? '/static/images/common/star_normal.png' : '/static/images/order/order_icon_address.png'"
+              src="/static/images/common/star_normal.png"
               class="left-icon"
             />
-            <!-- 为了测试方便，这里使用静态店铺数据 -->
-            <view
-              class="address"
-              @tap="replaceAddress"
-              v-if="Dining_type == '配送'"
-              >{{ address ? address : "请添加收货地址" }}</view
-            >
             <view
               class="address"
               @tap="jumpTableList"
-              v-else
-              >店内就餐<text v-if="table_num">{{ " 桌号：" + table_num }}</text> <text v-else> ：点击选择桌号</text></view
             >
+              店内就餐
+              <text v-if="table_num">{{ " 桌号：" + table_num }}</text>
+              <text v-else> ：点击选择桌号</text>
+            </view>
             <image
               src="/static/images/common/black_arrow_right.png"
               class="right-icon"
-            ></image>
+            />
           </view>
           <view class="buttons">
             {{ Dining_type }}
           </view>
         </view>
       </view>
+
       <!-- 滚动公告栏 begin -->
       <view class="notices">
         <swiper
@@ -75,15 +69,7 @@
             </view>
           </swiper-item>
         </swiper>
-        <view class="more">
-          <!-- #ifdef H5 -->
-          <!-- <button class="text-share" @tap="show_xia">分享</button> -->
-          <!-- #endif -->
-          <!-- #ifdef MP-WEIXIN -->
-          <!-- <button class="text-share" open-type="share">分享</button> -->
-          <!-- #endif -->
-          <!-- <image src="/static/images/common/gray_arrow_down.png" class="down-icon"></image> -->
-        </view>
+        <view class="more"> </view>
       </view>
     </view>
     <!-- 滚动公告栏 end -->
@@ -100,14 +86,14 @@
             @tap="handleMenuSelected(category.category_id)"
             :class="{ active: currentCategoryId == category.category_id }"
             v-for="(category, index) in categories"
-            :key="index"
+            :key="category.category_id"
           >
             <image
               style="border-radius: 50%; height: 60px"
-              :src="getimg + category.category_pic"
+              :src="category.category_pic"
               class="image"
               mode="widthFix"
-            ></image>
+            />
             <view class="title">{{ category.category_name }}</view>
           </view>
         </view>
@@ -222,7 +208,9 @@
       v-if="xia"
       @tap="show_xia"
     >
-      <view class="righ"><image src="@/static/icon-img/tou.png"></image></view>
+      <view class="righ">
+        <image src="@/static/icon-img/tou.png"></image>
+      </view>
       <view class="one">
         <view class="one-l">
           <view class="one-l-01">1</view>
@@ -246,13 +234,12 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapMutations } from "vuex";
 import Actions from "./components/actions/actions.vue";
 import CartBar from "./components/cartbar/cartbar.vue";
 import ProductModal from "./components/product-modal/product-modal.vue";
 import cartPopup from "./components/cart-popup/cart-popup.vue";
 import Search from "./components/search/search.vue";
-import address from "../../api/address.js";
 
 export default {
   components: {
@@ -272,35 +259,38 @@ export default {
           category_id: 1001,
           level: 1,
           number: 0,
-          category_pic: "uploads/images/tj.jpg",
+          category_pic: "https://th.bing.com/th/id/OIP.bVhUuMSYPrqsOhV7ewWU8gHaLH?w=98&h=147&c=7&r=0&o=5&pid=1.7",
         },
         {
           category_name: "新品",
           category_id: 1002,
           level: 1,
           number: 0,
-          category_pic: "uploads/images/xp.jpg",
+          category_pic: "https://th.bing.com/th/id/OIP.bVhUuMSYPrqsOhV7ewWU8gHaLH?w=98&h=147&c=7&r=0&o=5&pid=1.7",
         },
         {
           category_name: "热销",
           category_id: 1003,
           level: 1,
           number: 0,
-          category_pic: "uploads/images/rx.jpg",
+          category_pic: "https://th.bing.com/th/id/OIP.bVhUuMSYPrqsOhV7ewWU8gHaLH?w=98&h=147&c=7&r=0&o=5&pid=1.7",
         },
         {
           category_name: "满减",
           category_id: 1004,
           level: 1,
           number: 0,
-          category_pic: "uploads/images/hd.jpg",
+          category_pic: "https://th.bing.com/th/id/OIP.bVhUuMSYPrqsOhV7ewWU8gHaLH?w=98&h=147&c=7&r=0&o=5&pid=1.7",
         },
       ],
       cart: [],
       productList: [],
       product: {},
       currentCategoryId: 1001,
-      notices: [],
+      notices: [
+        { id: 1, title: "测试111" },
+        { id: 2, title: "测试1112" },
+      ],
       ads1: [
         "https://go.cdn.heytea.com/storage/ad/2020/05/28/752a5519e89541bd8417614c599cf8c3.jpg",
         "https://go.cdn.heytea.com/storage/ad/2020/05/24/38b7f686cf10449c85b0f5489d5d958e.jpg",
@@ -315,7 +305,7 @@ export default {
       cartPopupShow: false,
       productsScrollTop: 0,
       showSearch: false,
-      Dining_type: "配送",
+      Dining_type: "店内就餐",
       is_sku: false,
       address: "",
       Api_url: this.$getimg,
@@ -357,7 +347,9 @@ export default {
     closeProductDetailModal() {},
     openCartDetailsPopup() {},
     clearCart() {},
-    handleMenuSelected(id) {},
+    handleMenuSelected(id) {
+      this.currentCategoryId = id;
+    },
     productsScroll({ detail }) {},
     calcSize() {},
     pay() {},
@@ -393,6 +385,7 @@ export default {
 
 <style lang="scss">
 @import "./index.scss";
+
 uni-page-head {
   display: none;
 }

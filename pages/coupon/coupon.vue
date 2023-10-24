@@ -77,7 +77,6 @@
 </template>
 
 <script>
-import usercoupon from "@/api/user_coupon.js";
 import None from "../../components/none.vue";
 export default {
   components: {

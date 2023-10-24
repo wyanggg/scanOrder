@@ -118,11 +118,6 @@
 <script>
 import listCell from "@/components/list-cell/list-cell.vue";
 import loginPopup from "./components/login-popup.vue";
-import { mapState } from "vuex";
-import user from "@/api/user.js";
-import usercoupon from "@/api/user_coupon.js";
-import systemModel from "@/api/system.js";
-import article from "@/api/article.js";
 import XCXauth from "./components/xcx_auth.vue";
 
 export default {
@@ -145,180 +140,10 @@ export default {
       is_show_auth: false,
     };
   },
-  watch: {
-    // isLogin(v){
-    // 	// console.log(v)
-    // 	if(v){
-    // 		// user.get_info().then(res=>{
-    // 		// 	// console.log(res.data)
-    // 		// 	this.userinfo = res.data
-    // 		// })
-    // 	}
-    // }
-  },
-  onLoad() {
-    this.getUserInfo();
-    this.get_artical();
-    // this.show_data();
-    // this.getSystemConfig();
-  },
-  onShow() {
-    this.show_data();
-  },
-  methods: {
-    // 获取用户优惠劵
-    show_data() {
-      this.auto();
-      usercoupon.get_coupon().then((res) => {
-        this.coupon = res.data;
-        this.couponn = res.data.length;
-      });
-      this.getSystemConfig();
-    },
-    // 获取个人信息
-    async getUserInfo() {
-      const _this = this;
-      await user.get_info().then(async (res) => {
-        console.log("get_info", res);
-        _this.$refs["loginPopup"].close();
-        if ((res.data && !(res.data.headpic || res.data.nickname)) || (res.data.headpic == null && res.data.nickname == null)) {
-          await uni.getSetting({
-            success(res1) {
-              // 已授权
-              if (res1.authSetting["scope.userInfo"]) {
-                // 获取用户信息
-                // uni.getUserInfo({
-                // 	provider: 'weixin',
-                // 	success: function(infoRes) {
-                // 		user.upinfo(infoRes.userInfo).then(res => {
-                // 			_this.getUserInfo();
-                // 		});
-                // 	}
-                // })
-                wx.getUserProfile({
-                  desc: "用于完善会员资料", // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-                  success: (res) => {
-                    console.log("profile:", res.userinfo);
-                    // if (res.userInfo) {
-                    // 	const user = res.userInfo
-                    // 	that.UpUser(user,res.encryptedData,res.iv)
-                    // }
-                  },
-                });
-              } else {
-                _this.is_show_auth = true;
-              }
-            },
-          });
-        } else {
-          this.isLogin = true;
-          this.userinfo = res.data;
-          this.is_show_auth = false;
-        }
-      });
-    },
-    // 保存微信头像昵称信息
-    updateUserInfo(infoRes) {
-      const _this = this;
-      console.log("infoRes", infoRes);
-      user.upinfo(infoRes).then((res) => {
-        _this.getUserInfo();
-        this.is_show_auth = false;
-      });
-    },
-    // 拒接授权获取个人信息
-    getInfoFail() {
-      this.is_show_auth = false;
-      uni.showModal({
-        title: "提示",
-        content: "您已取消了授权，请重新授权登录",
-        showCancel: false,
-      });
-    },
-    get_artical() {
-      article.getPersonArticle().then((res) => {
-        this.articles = res.data;
-      });
-    },
-    openLoginPopup() {
-      console.log(this.isLogin);
-      if (this.isLogin) {
-        return;
-      }
-      this.$refs["loginPopup"].open();
-    },
-    nav(item) {
-      uni.setStorageSync("content", item.content);
-      uni.navigateTo({
-        url: "article/article",
-      });
-    },
-    info() {
-      uni.navigateTo({
-        url: "/pages/my/info",
-      });
-    },
-    taskCenter() {
-      uni.navigateTo({
-        url: "/pages/task-center/task-center",
-      });
-    },
-    openMember() {
-      uni.navigateTo({
-        url: "/pages/my/member",
-      });
-    },
-    myCode() {
-      uni.navigateTo({
-        url: "/pages/my/code",
-      });
-    },
-    openBenefits() {
-      if (this.isLogin) {
-        uni.navigateTo({
-          url: "/pages/my/benefits",
-        });
-      } else {
-        this.$refs["loginPopup"].open();
-      }
-    },
-    auto() {
-      this.getUserInfo();
-      // user.get_info().then(res => {
-      // 	if(res.data.nickname){
-      // 		this.isLogin = true
-      // 	}
-      // 	else
-      // 		this.isLogin = false
-      // 	//this.isLogin=res.data
-      // 	// console.log(this.isLogin)
-      // })
-    },
-    // 跳转优惠券列表
-    toGoCoupon() {
-      uni.navigateTo({
-        url: "../coupon/coupon",
-      });
-    },
-    getSystemConfig() {
-      const _this = this;
-      systemModel.getSystemConfig(6).then((res) => {
-        for (let k in res.data) {
-          if (res.data[k].key == "merchan_address") {
-            _this.shopAddress = res.data[k].value;
-          }
-          if (res.data[k].key == "merchant_phonto") {
-            _this.shopTel = res.data[k].value;
-          }
-          if (res.data[k].key == "merchant_name") {
-            uni.setNavigationBarTitle({
-              title: res.data[k].value,
-            });
-          }
-        }
-      });
-    },
-  },
+  watch: {},
+  onLoad() {},
+  onShow() {},
+  methods: {},
 };
 </script>
 
@@ -417,31 +242,6 @@ page {
     }
   }
 }
-/* #endif */
-
-// .info {
-// 	width: 100%;
-// 	// text-align: center;
-// 	padding: 30rpx;
-// 	margin-top: 80rpx;
-// 	color: #777;
-// 	font-size: 1rem;
-// 	background-color: white;
-// 	>view {
-// 		display: flex;
-// 		>text {
-// 			&:first-child {
-// 				display: inline-block;
-// 				width: 150rpx;
-// 				font-size: 0.9rem;
-// 				flex-shrink: 0;
-// 			}
-// 		}
-// 		&:first-child {
-// 			margin-bottom: 10rpx;
-// 		}
-// 	}
-// }
 
 .member-card {
   background-color: $bg-color-white;

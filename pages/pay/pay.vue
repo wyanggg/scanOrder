@@ -62,8 +62,6 @@
 </template>
 
 <script>
-import orderModel from "../../api/orderDetail.js";
-import order from "@/api/orders.js";
 export default {
   onLoad(option) {
     if (option.id) {
@@ -93,16 +91,7 @@ export default {
     };
   },
   methods: {
-    show_data() {
-      const that = this;
-      if (this.orderID) {
-        orderModel.get_one_order(this.orderID).then((res) => {
-          that.orderInfo = res.data.order;
-          this.orderInfo["expiration_date"] = res.data.order.updated_at;
-          that.countdown();
-        });
-      }
-    },
+    show_data() {},
     payChange(event) {
       console.log(event);
       let type = event.target.value;
@@ -170,81 +159,6 @@ export default {
     },
     //确认支付
     submitPay() {
-      if (this.countdownStr == "") {
-        this.showPrompt();
-        return;
-      }
-      let pay_data = {
-        pay_cate: this.payType,
-        id: this.orderID,
-      };
-      // #ifdef MP-WEIXIN
-      order.order_pay(pay_data).then((res) => {
-        if (res.status != 200) {
-          uni.showToast({
-            title: "支付失败",
-            icon: "none",
-          });
-          setTimeout(() => {
-            uni.switchTab({
-              url: "../order/order",
-            });
-          }, 1000);
-          // return ;
-        }
-        this.wx_pay(res.data);
-      });
-      // #endif
-
-      // #ifdef H5
-      order.H5_order_pay(pay_data).then((res) => {
-        if (res.status != 200) {
-          uni.showToast({
-            title: "支付失败",
-            icon: "none",
-          });
-          setTimeout(() => {
-            uni.switchTab({
-              url: "../order/order",
-            });
-          }, 1000);
-          // return ;
-        }
-        this.wxPay(res.data);
-      });
-      // #endif
-
-      // #ifdef APP-PLUS
-
-      uni.requestPayment({
-        provider: this.payType,
-        orderInfo: "orderInfo", //微信、支付宝订单数据
-        success: function (res) {
-          console.log("success:" + JSON.stringify(res));
-        },
-        fail: function (err) {
-          console.log("fail:" + JSON.stringify(err));
-        },
-      });
-      //#endif
-
-      // #ifdef MP-WEIXIN
-      //微信小程序
-      // uni.requestPayment({
-      // 	provider: 'wxpay',
-      // 	timeStamp: String(Date.now()),
-      // 	nonceStr: 'A1B2C3D4E5',
-      // 	package: 'prepay_id=wx20180101abcdefg',
-      // 	signType: 'MD5',
-      // 	paySign: '',
-      // 	success: function(res) {
-      // 		console.log('success:' + JSON.stringify(res));
-      // 	},
-      // 	fail: function(err) {
-      // 		console.log('fail:' + JSON.stringify(err));
-      // 	}
-      // });
-      // #endif
     },
     //公众号支付
     wxPay(json) {

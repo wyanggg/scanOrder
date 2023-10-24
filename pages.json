@@ -1,10 +1,10 @@
 {
   "pages": [
     {
-      "path": "pages/home/home",
+      "path": "pages/index/index",
       "style": {
         "navigationBarTitleText": " ",
-        "navigationStyle": "custom"
+        "disableScroll": true
       }
     },
     {
@@ -42,15 +42,7 @@
       "path": "pages/my/mall",
       "style": {}
     },
-    {
-      "path": "pages/index/index",
-      "style": {
-        "navigationBarTitleText": " ",
-        "disableScroll": true
 
-        // "navigationStyle":"custom"
-      }
-    },
     {
       "path": "pages/my/code",
       "style": {
@@ -182,6 +174,13 @@
         "navigationBarTitleText": "",
         "enablePullDownRefresh": false
       }
+    },
+    {
+      "path": "pages/home/home",
+      "style": {
+        "navigationBarTitleText": " ",
+        "navigationStyle": "custom"
+      }
     }
   ],
   "tabBar": {
@@ -192,12 +191,6 @@
     "fontSize": "14px",
     "iconWidth": "25px",
     "list": [
-      {
-        "pagePath": "pages/home/home",
-        "iconPath": "static/images/tabbar/home.png",
-        "selectedIconPath": "static/images/tabbar/home_selected.png",
-        "text": "首页"
-      },
       {
         "pagePath": "pages/index/index",
         "iconPath": "static/images/tabbar/index.png",
