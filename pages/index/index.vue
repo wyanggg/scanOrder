@@ -1,5 +1,5 @@
 <template>
-  <view class="container">
+  <view class="container1">
     <view class="header">
       <view class="search-box">
         <view class="search-input" @tap="showSearch = true">
@@ -7,7 +7,7 @@
           <view>搜索</view>
         </view>
       </view>
-      <view class="center">
+      <!-- <view class="center">
         <view class="store">
           <view class="title">
             <image src="/static/images/common/star_normal.png" class="left-icon" />
@@ -20,7 +20,7 @@
           </view>
           <view class="buttons"> 店内就餐 </view>
         </view>
-      </view>
+      </view> -->
 
       <!-- 滚动公告栏 begin -->
       <view class="notices">
@@ -35,9 +35,7 @@
         <view class="more"> </view>
       </view>
     </view>
-    <!-- 滚动公告栏 end -->
     <view class="main">
-      <!-- 左侧菜单 begin -->
       <scroll-view class="menu-bar" scroll-y scroll-with-animation>
         <view class="wrapper">
           <view class="menu-item" @tap="handleMenuSelected(category.id)"
@@ -86,19 +84,22 @@
       @add-to-cart="handleAddToCartInModal" />
     <Search :show="showSearch" :hotSearch="hotSearch" :categories="categories" @hide="showSearch = false"
       @choose="showProductDetailModal" />
+
+    <shopCarAnimation ref="carAnmation" cartx="0.58" carty="1.1"></shopCarAnimation>
   </view>
 </template>
 
 <script>
 import ProductModal from "./components/product-modal/product-modal";
 import Search from "./components/search/search";
-// api
+import shopCarAnimation from '@/components/fly-in-cart/fly-in-cart.vue'
 import { getCategory, getMsg, getSwiper, getProducts } from "@/api/index.js";
 
 export default {
   components: {
     ProductModal,
     Search,
+    shopCarAnimation
   },
   data() {
     return {
@@ -165,7 +166,10 @@ export default {
       this.product = product;
       this.productModalVisible = true;
     },
-    handleAddToCartInModal(product) { },
+    handleAddToCartInModal(product) {
+      console.log('%c [ product ]-170', 'font-size:13px; background:#333333; color:#f3f3f3;', product)
+      this.productModalVisible = false
+    },
     closeProductDetailModal() {
       this.product = {};
       this.productModalVisible = false;

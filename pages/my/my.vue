@@ -4,9 +4,9 @@
     <view class="content">
       <view class="welcome" @tap="openLoginPopup">
         <view v-if="isLogin">
-          <image v-if="isLogin" :src="userinfo.headpic" class="headpic"></image>
+          <image v-if="isLogin" :src="userinfo.avatarImage" class="headpic"></image>
           <view>
-            <text>{{ userinfo.nickname }}</text>
+            <text>{{ userinfo.realName }}</text>
             <text>普通用户</text>
           </view>
         </view>
@@ -16,30 +16,32 @@
         <view class="row">
           <navigator class="grid" open-type="navigate" url="/pages/integrals/scores">
             <image src="/static/images/my/jf.png"></image>
-            <view class="value">{{ userinfo.points || 0 }}</view>
+            <view class="value">{{ userinfo.balanceQuota || 0 }}</view>
             <view class="title">积分</view>
           </navigator>
+
+          <navigator class="grid" open-type="navigate" url="/pages/my/wallet">
+            <image src="/static/images/my/ye.png"></image>
+            <view class="value">{{ userinfo.quota || 0 }}</view>
+            <view class="title">余额</view>
+          </navigator>
+
           <view class="grid" hover-class="opacity-6" @tap="toGoCoupon">
             <image src="/static/images/my/yhq.png"></image>
             <view class="value">{{ couponn || 0 }}</view>
             <view class="title">优惠券</view>
           </view>
-          <navigator class="grid" open-type="navigate" url="/pages/my/wallet">
-            <image src="/static/images/my/ye.png"></image>
-            <view class="value">{{ userinfo.money || 0 }}</view>
-            <view class="title">余额</view>
-          </navigator>
         </view>
       </view>
     </view>
 
-    <navigator open-type="navigate" url="../addresses/addresses">
+    <!-- <navigator open-type="navigate" url="../addresses/addresses">
       <list-cell hover arrow last>
         <view class="list-cell-wrapper">
           <view view="title">地址管理</view>
         </view>
       </list-cell>
-    </navigator>
+    </navigator> -->
     <view v-for="(item, index) in articles" :key="index" @click="nav(item)">
       <list-cell hover arrow>
         <view class="list-cell-wrapper">
@@ -86,6 +88,8 @@ export default {
       let res = await getUserInfo()
       if (res.code == 200) {
         console.log('res', res)
+        this.userinfo = res.data
+        this.isLogin = true
       }
     }
   },
@@ -133,7 +137,7 @@ page {
 
 .welcome {
   position: relative;
-  margin-top: -190rpx;
+  margin-top: -180rpx;
   display: flex;
   flex-direction: column;
   font-size: $font-size-lg;

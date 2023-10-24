@@ -5,41 +5,23 @@
       <view class="value">{{ info.points || 0 }}</view>
     </view>
     <view class="flex-fill overflow-hidden">
-      <view
-        class="content"
-        v-if="!scores.length"
-      >
+      <view class="content" v-if="!scores.length">
         <view class="top">积分记录</view>
         <view class="flex-fill d-flex align-items-center just-content-center"> 暂无积分记录 </view>
       </view>
-      <scroll-view
-        class="content"
-        scroll-y
-        v-else
-      >
+      <scroll-view class="content" scroll-y v-else>
         <view class="top">积分记录</view>
-        <list-cell
-          v-for="(score, index) in scores"
-          :key="index"
-        >
+        <list-cell v-for="(score, index) in scores" :key="index">
           <view class="score">
             <view class="left">
               <view class="title mb-10">{{ title(score) }}</view>
-              <view
-                class="mb-10"
-                v-if="score.shopName"
-                >{{ score.shopName }}</view
-              >
+              <view class="mb-10" v-if="score.shopName">{{ score.shopName }}</view>
               <view>{{ score.createAt }}</view>
             </view>
             <view class="right">+{{ score.scoreChange }}</view>
           </view>
         </list-cell>
-        <nomore
-          :visible="!loading"
-          :line="false"
-          text="没有更多积分记录了~"
-        ></nomore>
+        <nomore :visible="!loading" :line="false" text="没有更多积分记录了~"></nomore>
       </scroll-view>
     </view>
   </view>
@@ -79,8 +61,8 @@ export default {
     this.getInfo();
   },
   methods: {
-    show_data() {},
-    getInfo() {},
+    show_data() { },
+    getInfo() { },
   },
 };
 </script>

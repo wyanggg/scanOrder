@@ -1,26 +1,13 @@
 <template>
   <view class="goods-list">
     <!-- 订单中的商品 -->
-    <view
-      class="goods-panel"
-      v-for="(item, index) in goods"
-      :key="index"
-    >
+    <view class="goods-panel" v-for="(item, index) in goods" :key="index">
       <view class="left">
-        <image
-          class="img"
-          :src="getimg + item.pic"
-          mode=""
-        ></image>
+        <image class="img" :src="getimg + item.pic" mode=""></image>
       </view>
       <view class="right">
         <view class="goods_name">{{ item.goods_name }}</view>
-        <button
-          class="btn"
-          type="primary"
-          size="mini"
-          @tap="jump(item.goods_id)"
-        >
+        <button class="btn" type="primary" size="mini" @tap="jump(item.goods_id)">
           评论
         </button>
       </view>
@@ -49,7 +36,7 @@ export default {
       this.getOrderInfo();
     },
     // 获取订单信息
-    getOrderInfo() {},
+    getOrderInfo() { },
     // 跳转评论页面
     jump(id) {
       uni.navigateTo({

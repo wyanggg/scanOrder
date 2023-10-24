@@ -1,53 +1,32 @@
 <template>
   <view class="evaluate">
     <None v-if="list_empty"></None>
-    <view
-      class="comment"
-      v-for="(item, index) of comment_list"
-      :key="index"
-      v-else
-    >
+    <view class="comment" v-for="(item, index) of comment_list" :key="index" v-else>
       <block v-if="currentTab == 0">
         <view class="con">
           <view class="con_1">
             <view class="con_1_l">
               <img :src="item.headpic" />
-              <view class="name"
-                >{{ item.nickname }}<span></span>
+              <view class="name">{{ item.nickname }}<span></span>
                 <view class="con_1_r">{{ item.create_time }}</view>
               </view>
             </view>
             <view class="con_1_r">
               <view class="ping">
-                <tui-rate
-                  :current="item.rate"
-                  @change="changedd"
-                  active="#F37B1D"
-                  :disabled="true"
-                ></tui-rate>
+                <tui-rate :current="item.rate" @change="changedd" active="#F37B1D" :disabled="true"></tui-rate>
               </view>
             </view>
           </view>
           <view class="con_2">
             {{ item.content }}
             <view class="img">
-              <block
-                v-for="(url, index) of item.imgs"
-                :key="index"
-                v-if="index < 9"
-              >
-                <image
-                  :src="getimg + url"
-                  @click="ViewImage(item.imgs, index)"
-                />
+              <block v-for="(url, index) of item.imgs" :key="index" v-if="index < 9">
+                <image :src="getimg + url" @click="ViewImage(item.imgs, index)" />
               </block>
             </view>
           </view>
 
-          <view
-            class="reply"
-            v-if="item.reply_content != null"
-            >商家回复：<br />
+          <view class="reply" v-if="item.reply_content != null">商家回复：<br />
             <view style="margin-left: 20px; padding: 10px">
               {{ item.reply_content }}
             </view>
@@ -58,18 +37,9 @@
       <view class="H10"></view>
     </view>
     <!-- 弹框评论 -->
-    <ygc-comment
-      ref="ygcComment"
-      :placeholder="'发布评论'"
-      @pubComment="pubComment"
-    ></ygc-comment>
+    <ygc-comment ref="ygcComment" :placeholder="'发布评论'" @pubComment="pubComment"></ygc-comment>
     <view class="fixed-btn">
-      <button
-        v-if="isHasOrder"
-        type="primary"
-        class="submit-pl"
-        @tap="showComment"
-      >
+      <button v-if="isHasOrder" type="primary" class="submit-pl" @tap="showComment">
         发布评论
       </button>
     </view>
@@ -162,7 +132,7 @@ export default {
       obj.goods_id = this.goods_id;
     },
     // 获取某个商品评论
-    getCommentOne() {},
+    getCommentOne() { },
   },
 };
 </script>
@@ -270,6 +240,7 @@ export default {
     height: 100rpx;
     background-color: white;
     padding: 20rpx 40rpx;
+
     .submit-pl {
       width: 100%;
       height: 100%;

@@ -1,44 +1,24 @@
 <template>
   <view class="container">
     <view class="content">
-      <list-cell
-        v-for="(address, index) in addresses"
-        :key="index"
-        :line-left="false"
-        @tap="choose(address)"
-      >
+      <list-cell v-for="(address, index) in addresses" :key="index" :line-left="false" @tap="choose(address)">
         <view class="address">
           <view class="info">
             <view class="user-row">
               {{ `${address.name} ${address.mobile}` }}
             </view>
             <view class="address-row">
-              <view
-                class="is-default"
-                v-if="address.is_default"
-                >默认地址</view
-              >
+              <view class="is-default" v-if="address.is_default">默认地址</view>
               <view class="address">{{ address.province + address.city + address.detail }}</view>
             </view>
           </view>
-          <image
-            src="/static/images/common/edit.png"
-            @tap.stop="edit(address.id)"
-            class="edit-btn"
-          ></image>
-          <image
-            src="/static/icon-img/delete.png"
-            @tap.stop="deleteAddress(address.id)"
-            class="del-btn"
-          ></image>
+          <image src="/static/images/common/edit.png" @tap.stop="edit(address.id)" class="edit-btn"></image>
+          <image src="/static/icon-img/delete.png" @tap.stop="deleteAddress(address.id)" class="del-btn"></image>
         </view>
       </list-cell>
     </view>
     <view class="footer">
-      <button
-        type="info"
-        @tap="add"
-      >
+      <button type="info" @tap="add">
         +添加地址
       </button>
     </view>
@@ -72,7 +52,7 @@ export default {
   computed: {},
   methods: {
     ...mapMutations(["SET_ADDRESS", "SET_ORDER_TYPE"]),
-    show_data() {},
+    show_data() { },
     add() {
       uni.navigateTo({
         url: "/pages/addresses/add",
@@ -83,8 +63,8 @@ export default {
         url: "/pages/addresses/add?id=" + id,
       });
     },
-    deleteAddress(id) {},
-    choose(address) {},
+    deleteAddress(id) { },
+    choose(address) { },
   },
 };
 </script>

@@ -4,7 +4,8 @@
       "path": "pages/index/index",
       "style": {
         "navigationBarTitleText": " ",
-        "disableScroll": true
+        "disableScroll": true,
+        "navigationStyle": "custom"
       }
     },
     {

@@ -1,41 +1,23 @@
 <template>
-  <view
-    class="container"
-    style="font-size: 15px !important"
-  >
+  <view class="container" style="font-size: 15px !important">
     <view class="address-form">
       <list-cell padding="30rpx">
         <view class="form-item">
           <view class="label">联系人</view>
-          <input
-            type="text"
-            v-model="form.name"
-            placeholder="请填写收货人的姓名"
-            placeholder-class="placeholder"
-          />
+          <input type="text" v-model="form.name" placeholder="请填写收货人的姓名" placeholder-class="placeholder" />
         </view>
       </list-cell>
       <list-cell padding="30rpx">
         <view class="form-item">
           <view class="label">手机号</view>
-          <input
-            type="text"
-            maxlength="11"
-            v-model="form.mobile"
-            placeholder="请填写收货手机号码"
-            placeholder-class="placeholder"
-          />
+          <input type="text" maxlength="11" v-model="form.mobile" placeholder="请填写收货手机号码"
+            placeholder-class="placeholder" />
         </view>
       </list-cell>
       <list-cell padding="30rpx">
         <view class="form-item">
           <view class="label">地区</view>
-          <picker
-            @change="bindPickerChange"
-            :value="index"
-            mode="selector"
-            :range="provinces"
-          >
+          <picker @change="bindPickerChange" :value="index" mode="selector" :range="provinces">
             <view class="uni-input">{{ provinces[index] }}</view>
           </picker>
         </view>
@@ -43,12 +25,7 @@
       <list-cell padding="30rpx">
         <view class="form-item">
           <view class="label">街道</view>
-          <picker
-            @change="bindPickerChange1"
-            mode="selector"
-            :value="index1"
-            :range="citys"
-          >
+          <picker @change="bindPickerChange1" mode="selector" :value="index1" :range="citys">
             <view class="uni-input">{{ citys[index1] }}</view>
           </picker>
         </view>
@@ -56,21 +33,13 @@
       <list-cell padding="30rpx">
         <view class="form-item">
           <view class="label">详细地址</view>
-          <input
-            type="text"
-            v-model="form.detail"
-            placeholder="例:B座6楼606室"
-            placeholder-class="placeholder"
-          />
+          <input type="text" v-model="form.detail" placeholder="例:B座6楼606室" placeholder-class="placeholder" />
         </view>
       </list-cell>
     </view>
 
     <view class="save-btn">
-      <button
-        type="info"
-        @click="save()"
-      >
+      <button type="info" @click="save()">
         保存
       </button>
     </view>
@@ -104,16 +73,16 @@ export default {
     };
   },
   watch: {
-    index(val) {},
+    index(val) { },
   },
   onLoad({ id }) {
     this.id = id;
   },
   methods: {
-    show_data() {},
-    bindPickerChange: function (e) {},
-    bindPickerChange1: function (e) {},
-    save() {},
+    show_data() { },
+    bindPickerChange: function (e) { },
+    bindPickerChange1: function (e) { },
+    save() { },
   },
 };
 </script>
@@ -143,6 +112,7 @@ export default {
     .radio {
       display: flex;
       margin-right: 50rpx;
+
       image {
         width: 40rpx;
         height: 40rpx;

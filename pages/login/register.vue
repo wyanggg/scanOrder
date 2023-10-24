@@ -145,9 +145,9 @@ export default {
     startReg() {
       //注册
       if (this.isRotate) {
-        //判断是否加载中，避免重复点击请求
         return false
       }
+
       if (this.showAgree == false) {
         uni.showToast({
           icon: "none",
@@ -172,16 +172,6 @@ export default {
         })
         return false
       }
-
-      if (this.payPassword.length != 6) {
-        uni.showToast({
-          icon: "none",
-          position: "bottom",
-          title: "请输入6位支付密码",
-        })
-        return false
-      }
-
       if (!this.verCode) {
         uni.showToast({
           icon: "none",
@@ -207,7 +197,7 @@ export default {
         password: _this.password,
         share: _this.invitationCode1,
         code: _this.verCode,
-        payPassword: _this.payPassword,
+        // payPassword: _this.payPassword,
       }
       registerAPI(data)
         .then((res) => {

@@ -35,3 +35,8 @@ export const getUserInfo = (data) => Request({
     method: "get",
 })
 
+export const getOrders = data => Request({
+    url: "/api/home/orders",
+    data,
+    method: "get"
+})

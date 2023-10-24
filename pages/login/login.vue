@@ -109,14 +109,11 @@ export default {
               res = await wxLogin({ code })
             } catch (error) { }
             if (res.code === 200) {
+              uni.hideLoading()
+
               uni.setStorageSync("token", res.data.token)
               uni.setStorageSync("user", res.data.user.user)
-              uni.hideLoading()
-              if (res.data.user.user.phone) {
-                uni.switchTab({ url: "/pages/index/index" })
-              } else {
-                uni.navigateTo({ url: "/pages/user/bindPhone" })
-              }
+              uni.navigateBack();
             }
           } else {
           }
@@ -135,7 +132,7 @@ export default {
       _this.showAgree = !_this.showAgree
     },
     isLogin() { },
-    startLogin() {
+    async startLogin() {
       //登录
       if (this.isRotate) {
         //判断是否加载中，避免重复点击请求
@@ -173,20 +170,19 @@ export default {
         password: _this.passData,
       }
 
-      loginAPI(data)
-        .then((res) => {
-          uni.setStorageSync("user", res.user.user)
-          uni.setStorageSync("token", res.token)
-          setTimeout(function () {
-            uni.hideLoading()
-          }, 2000)
-          uni.reLaunch({
-            url: "/pages/index/index",
-          })
-        })
-        .catch(() => {
-          _this.isRotate = false
-        })
+
+      let res = await loginAPI(data)
+      if (res.code === 200) {
+        this.isRotate = false
+        uni.setStorageSync("user", res.data.user)
+        uni.setStorageSync("token", res.data.token)
+
+        setTimeout(function () {
+          uni.hideLoading()
+        }, 2000)
+        uni.navigateBack();
+      }
+
     },
     login_weixin() {
       //微信登录

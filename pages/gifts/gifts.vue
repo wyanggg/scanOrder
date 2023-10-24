@@ -1,41 +1,19 @@
 <template>
   <view class="container">
     <view class="tab-bar">
-      <view
-        class="item"
-        v-for="(item, index) in tabBars"
-        :key="index"
-        :class="{ active: currentTabIndex == index }"
-        @tap="handleTabChange(index)"
-      >
+      <view class="item" v-for="(item, index) in tabBars" :key="index" :class="{ active: currentTabIndex == index }"
+        @tap="handleTabChange(index)">
         {{ item }}
       </view>
     </view>
-    <swiper
-      :duration="400"
-      class="tab-panes"
-      :current="currentTabIndex"
-    >
-      <swiper-item
-        class="gift-cards-swiper h-100"
-        @touchmove.stop="handleSwiperItemChange"
-      >
-        <scroll-view
-          scroll-y="true"
-          class="h-100"
-        >
-          <image
-            src="https://static.heytea.com/taro_trial/v1/img/my/img_gift_card_banner.png"
-            class="w-100"
-            mode="widthFix"
-          />
+    <swiper :duration="400" class="tab-panes" :current="currentTabIndex">
+      <swiper-item class="gift-cards-swiper h-100" @touchmove.stop="handleSwiperItemChange">
+        <scroll-view scroll-y="true" class="h-100">
+          <image src="https://static.heytea.com/taro_trial/v1/img/my/img_gift_card_banner.png" class="w-100"
+            mode="widthFix" />
           <!-- 礼品卡列表 begin -->
           <view class="gift-cards">
-            <view
-              class="category-list"
-              v-for="(category, index) in giftCards"
-              :key="index"
-            >
+            <view class="category-list" v-for="(category, index) in giftCards" :key="index">
               <view class="header">
                 <view class="title">{{ category.name }}</view>
                 <view class="more">
@@ -43,21 +21,9 @@
                   <image src="/static/images/common/icon_jump_black3.png"></image>
                 </view>
               </view>
-              <swiper
-                :duration="500"
-                class="product-list"
-                next-margin="220rpx"
-              >
-                <swiper-item
-                  v-for="(product, key) in category.product_list"
-                  :key="key"
-                  class="product"
-                >
-                  <image
-                    :src="product.image_url"
-                    class="product-image"
-                    @tap="openCardPopup(product)"
-                  />
+              <swiper :duration="500" class="product-list" next-margin="220rpx">
+                <swiper-item v-for="(product, key) in category.product_list" :key="key" class="product">
+                  <image :src="product.image_url" class="product-image" @tap="openCardPopup(product)" />
                 </swiper-item>
               </swiper>
             </view>
@@ -70,24 +36,11 @@
           </view>
         </scroll-view>
       </swiper-item>
-      <swiper-item
-        @touchmove.stop="handleSwiperItemChange"
-        class="my-gift-cards-swiper"
-      >
+      <swiper-item @touchmove.stop="handleSwiperItemChange" class="my-gift-cards-swiper">
         <view class="header">
           <view class="tab-bar-2">
-            <view
-              class="item"
-              :class="{ active: currentTab2Index == 0 }"
-              @tap="handleTab2Change(0)"
-              >可使用(0)</view
-            >
-            <view
-              class="item"
-              :class="{ active: currentTab2Index == 1 }"
-              @tap="handleTab2Change(1)"
-              >未激活(0)</view
-            >
+            <view class="item" :class="{ active: currentTab2Index == 0 }" @tap="handleTab2Change(0)">可使用(0)</view>
+            <view class="item" :class="{ active: currentTab2Index == 1 }" @tap="handleTab2Change(1)">未激活(0)</view>
           </view>
           <view class="right">
             <image src="/static/images/my/icon_giftcard.png"></image>
@@ -95,30 +48,14 @@
           </view>
         </view>
         <view class="content">
-          <swiper
-            :duration="400"
-            class="h-100"
-            :current="currentTab2Index"
-            @change="(e) => handleTab2Change(e.detail.current)"
-          >
+          <swiper :duration="400" class="h-100" :current="currentTab2Index"
+            @change="(e) => handleTab2Change(e.detail.current)">
             <swiper-item>
               <view class="h-100 d-flex flex-column align-items-center">
                 <template v-if="!MyCanUseGiftCards.length">
-                  <image
-                    src="/static/images/my/img_giftcard_empty.png"
-                    class="giftcard-empty-img"
-                  ></image>
-                  <view
-                    class="tips"
-                    style="margin: 50rpx 0"
-                    >暂无阿喜有礼</view
-                  >
-                  <button
-                    type="primary"
-                    class="font-size-lg"
-                    style="padding: 0 80rpx"
-                    @tap="handleTabChange(0)"
-                  >
+                  <image src="/static/images/my/img_giftcard_empty.png" class="giftcard-empty-img"></image>
+                  <view class="tips" style="margin: 50rpx 0">暂无阿喜有礼</view>
+                  <button type="primary" class="font-size-lg" style="padding: 0 80rpx" @tap="handleTabChange(0)">
                     现在去选购
                   </button>
                 </template>
@@ -127,21 +64,9 @@
             <swiper-item>
               <view class="h-100 d-flex flex-column align-items-center">
                 <template v-if="!MyCanUseGiftCards.length">
-                  <image
-                    src="/static/images/my/img_giftcard_empty.png"
-                    class="giftcard-empty-img"
-                  ></image>
-                  <view
-                    class="tips"
-                    style="margin: 50rpx 0"
-                    >暂无阿喜有礼</view
-                  >
-                  <button
-                    type="primary"
-                    class="font-size-lg"
-                    style="padding: 0 80rpx"
-                    @tap="handleTabChange(0)"
-                  >
+                  <image src="/static/images/my/img_giftcard_empty.png" class="giftcard-empty-img"></image>
+                  <view class="tips" style="margin: 50rpx 0">暂无阿喜有礼</view>
+                  <button type="primary" class="font-size-lg" style="padding: 0 80rpx" @tap="handleTabChange(0)">
                     现在去选购
                   </button>
                 </template>
@@ -156,10 +81,7 @@
         </view>
       </swiper-item>
     </swiper>
-    <card-popup
-      ref="cardPopup"
-      :product="product"
-    />
+    <card-popup ref="cardPopup" :product="product" />
   </view>
 </template>
 
@@ -180,7 +102,7 @@ export default {
       product: {},
     };
   },
-  async onLoad() {},
+  async onLoad() { },
   computed: {
     MyCanUseGiftCards() {
       return this.myGiftCards.filter((item) => item.status == 1);

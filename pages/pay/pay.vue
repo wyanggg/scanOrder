@@ -9,10 +9,7 @@
         <text class="fh">￥</text>
         <text class="txt1">{{ orderInfo.order_money }}</text>
       </view>
-      <view
-        class="row pt-4"
-        @click="doOrder"
-      >
+      <view class="row pt-4" @click="doOrder">
         <text>{{ orderInfo.store_name }}</text>
         <text v-if="orderInfo.store_community">（{{ orderInfo.store_community }}）</text>
         <text>订单详情</text>
@@ -20,42 +17,25 @@
       </view>
     </view>
     <view class="container">
-      <radio-group
-        @change="payChange"
-        class="list-box"
-      >
-        <block
-          v-for="(item, i) in payData"
-          :key="i"
-        >
+      <radio-group @change="payChange" class="list-box">
+        <block v-for="(item, i) in payData" :key="i">
           <view class="flex-rl list-item">
             <view class="left">
               <view class="iconbox">
-                <image
-                  class="icon-img"
-                  src="../../static/icon-img/weixin.png"
-                  mode=""
-                ></image>
+                <image class="icon-img" src="../../static/icon-img/weixin.png" mode=""></image>
               </view>
             </view>
             <view class="b-b right">
               <view class="tit-box">
                 <text class="tit">{{ item.name }}</text>
               </view>
-              <radio
-                :value="item.id"
-                color="#ffc107"
-                :checked="item.default == 1"
-              />
+              <radio :value="item.id" color="#ffc107" :checked="item.default == 1" />
             </view>
           </view>
         </block>
       </radio-group>
     </view>
-    <view
-      class="btn"
-      @click="submitPay"
-    >
+    <view class="btn" @click="submitPay">
       <text>确认支付</text>
     </view>
   </view>
@@ -91,7 +71,7 @@ export default {
     };
   },
   methods: {
-    show_data() {},
+    show_data() { },
     payChange(event) {
       console.log(event);
       let type = event.target.value;
@@ -104,7 +84,7 @@ export default {
         content: "这是查看订单的事件",
         showCancel: false,
         confirmColor: "#999",
-        success: function (res) {},
+        success: function (res) { },
       });
     },
 
